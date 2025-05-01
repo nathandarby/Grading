@@ -7,6 +7,7 @@
 -- Drop existing schema if re-running (optional during development)
 DROP SCHEMA IF EXISTS FRAM_grading CASCADE;
 
+
 -- Create fresh schema
 CREATE SCHEMA fram_grading;
 

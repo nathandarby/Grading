@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS Grader_Profile CASCADE;
 DROP TYPE IF EXISTS user_role CASCADE;
 DROP TYPE IF EXISTS title CASCADE;
 
+
 -- === User_Role Type ===
 CREATE TYPE user_role AS ENUM (
 	'student',
