@@ -19,6 +19,7 @@ CREATE TYPE user_role AS ENUM (
 	'ai'
 );
 --
+
 -- === Title type ===
 CREATE TYPE title AS ENUM (
 	'ta',
