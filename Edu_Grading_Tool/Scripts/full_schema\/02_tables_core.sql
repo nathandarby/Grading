@@ -4,7 +4,6 @@
 -- Created: 2024-4-21
 -- Author: Nathan Darby
 
-
 -- === DROP TABLES FOR CLEAN RESET (DEV ONLY) ===
 DROP TABLE IF EXISTS Submission_Answer CASCADE;
 DROP TABLE IF EXISTS Submission CASCADE;

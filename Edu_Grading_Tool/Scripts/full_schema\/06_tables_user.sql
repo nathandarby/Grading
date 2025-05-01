@@ -4,6 +4,7 @@
 -- Created: 2024-4-21
 -- Author: Nathan Darby
 
+
 DROP TABLE IF EXISTS App_User CASCADE;
 DROP TABLE IF EXISTS Student_Profile CASCADE;
 DROP TABLE IF EXISTS Grader_Profile CASCADE;

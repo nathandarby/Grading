@@ -4,8 +4,6 @@
 -- Created: 2024-4-21
 -- Author: Nathan Darby
 
-
-
 -- === DROP TABLES FOR CLEAN RESET (DEV ONLY) ===
 DROP TABLE IF EXISTS Feedback CASCADE;
 DROP TABLE IF EXISTS AI_Feedback CASCADE;
