@@ -8,7 +8,7 @@
 SET search_path TO public;
 
 
--- CORE ********************************************************************************************
+-- ENUM TYPES ********************************************************************************************
 
 -- === ENUM TYPES ===
 CREATE TYPE content_type AS ENUM (
@@ -19,6 +19,57 @@ CREATE TYPE content_type AS ENUM (
 	'multiple_choice' 
 );
 
+-- === User_Role Type ===
+CREATE TYPE user_role AS ENUM (
+	'student',
+	'grader',
+	'admin',
+	'ai'
+);
+--
+
+-- === Title type ===
+CREATE TYPE title AS ENUM (
+	'ta',
+    'professor',
+    'postdoc',
+    'undergraduate',
+    'external reviewer'
+);
+
+-- USER ********************************************************************************************
+
+-- === App_User Table ===
+CREATE TABLE App_User (
+	user_id SERIAL PRIMARY KEY,
+	name TEXT NOT NULL,
+	email TEXT UNIQUE NOT NULL,
+	password_hash TEXT NOT NULL,
+	role user_role NOT NULL,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+
+);
+
+-- === Student_Profile Table === 
+CREATE TABLE Student_Profile (
+    user_id INTEGER PRIMARY KEY REFERENCES App_User(user_id) ON DELETE NO ACTION,
+    school TEXT,
+    major TEXT,
+    year INTEGER,
+    gpa DECIMAL (3,2) 
+
+);
+
+-- === Grader_Profile === 
+CREATE TABLE Grader_Profile (
+    user_id INTEGER PRIMARY KEY REFERENCES App_User(user_id) ON DELETE NO ACTION,
+    title title NOT NULL,
+    department TEXT,
+    years_experience INTEGER
+    
+);
+
+-- CORE ********************************************************************************************
 
 -- === Subject Table === (MVP: Mathematics)
 CREATE TABLE Subject (
@@ -54,7 +105,7 @@ CREATE TABLE Content (
 	description TEXT,				
 	learning_objectives TEXT, 		
 	instructions TEXT, 				
-	created_by INTEGER, 			
+	created_by INTEGER REFERENCES App_User(user_id) ON DELETE SET NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ); 
@@ -73,34 +124,6 @@ CREATE TABLE Question (
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 ); 
 
--- === User_Role Type ===
-CREATE TYPE user_role AS ENUM (
-	'student',
-	'grader',
-	'admin',
-	'ai'
-);
---
-
--- === Title type ===
-CREATE TYPE title AS ENUM (
-	'ta',
-    'professor',
-    'postdoc',
-    'undergraduate',
-    'external reviewer'
-);
-
--- === App_User Table ===
-CREATE TABLE App_User (
-	user_id SERIAL PRIMARY KEY,
-	name TEXT NOT NULL,
-	email TEXT UNIQUE NOT NULL,
-	password_hash TEXT NOT NULL,
-	role user_role NOT NULL,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
-
-);
 
 -- === Submission Table ===  
 CREATE TABLE Submission (
@@ -121,29 +144,6 @@ CREATE TABLE Submission_Answer (
 	answer_text TEXT NOT NULL,
 	extracted_confidence FLOAT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
--- USER ********************************************************************************************
-
-
--- === Student_Profile Table === 
-CREATE TABLE Student_Profile (
-    user_id INTEGER PRIMARY KEY REFERENCES App_User(user_id),
-    school TEXT,
-    major TEXT,
-    year INTEGER,
-    gpa DECIMAL (3,2) 
-
-);
-
--- === Grader_Profile === 
-CREATE TABLE Grader_Profile (
-    user_id INTEGER PRIMARY KEY REFERENCES App_User(user_id),
-    title title NOT NULL,
-    department TEXT,
-    years_experience INTEGER
-    
 );
 
 -- Feedback ********************************************************************************************

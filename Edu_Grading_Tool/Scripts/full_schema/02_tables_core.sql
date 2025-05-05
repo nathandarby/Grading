@@ -59,7 +59,7 @@ CREATE TABLE Content (
 	description TEXT,				
 	learning_objectives TEXT, 		
 	instructions TEXT, 				
-	created_by INTEGER, 			
+	created_by INTEGER REFERENCES App_User(user_id) ON DELETE SET NULL, 			
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ); 
