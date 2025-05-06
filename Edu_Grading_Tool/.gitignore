@@ -1,0 +1,19 @@
+
+# IDE + OS
+.idea/
+.DS_Store
+*.bak
+
+# Python
+__pycache__/
+.venv/
+
+# DBeaver junk
+.dbeaver/
+
+
+.dbeaver/
+.settings/
+.project
+.DS_Store
+
